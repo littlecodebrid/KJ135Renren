@@ -9,7 +9,7 @@ import Router from 'vue-router'
 import http from '@/utils/httpRequest'
 import { isURL } from '@/utils/validate'
 import { clearLoginInfo } from '@/utils'
-
+import i18n from '../i18n/i18n'
 Vue.use(Router)
 
 // 开发环境不使用懒加载, 因为懒加载页面太多的话会造成webpack热更新太慢, 所以只有生产环境使用懒加载
@@ -41,6 +41,8 @@ const mainRoutes = {
     beforeEnter(to, from, next) {
       console.log('ym', to)
         let token = Vue.cookie.get('token')
+        let languageKey = Vue.cookie.get('languageKey')
+        setLanguage(languageKey)
         if (!token || !/\S/.test(token)) {
             clearLoginInfo()
             // next({ name: 'login' })
@@ -163,5 +165,11 @@ function goToLogin () {
   window.location.href = window.SITE_CONFIG.loginUrlLocal + `/#/login?redirect=${redirect}`
 
 }
-
+function setLanguage (key) {
+  if(key==='true'){
+    i18n.locale='cn'
+  }else {
+    i18n.locale='en'
+  }
+}
 export default router

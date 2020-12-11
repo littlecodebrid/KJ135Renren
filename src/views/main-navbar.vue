@@ -34,6 +34,15 @@
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
+        <el-menu-item>
+          <!--<el-switch style="display: block;float: right;margin-top: 15px" v-model="switchValue"-->
+                     <!--inactive-color="#13ce66"-->
+                     <!--active-color="#1890ff"-->
+                     <!--inactive-text="English"-->
+                     <!--active-text="中文"-->
+                     <!--@change="switchChange">-->
+          <!--</el-switch>-->
+        </el-menu-item>
       </el-menu>
     </div>
     <!-- 弹窗, 修改密码 -->
@@ -48,6 +57,7 @@
   export default {
     data () {
       return {
+        // switchValue: true,
         updatePassowrdVisible: false
       }
     },
@@ -68,8 +78,16 @@
       },
       userName: {
         get () { return this.$store.state.user.name }
-      }
+      },
+
     },
+    // created(){
+    //   if(sessionStorage.getItem('locale')=='en'){
+    //     this.switchValue=false
+    //   }else {
+    //     this.switchValue=true
+    //   }
+    // },
     methods: {
       // 修改密码
       updatePasswordHandle () {
@@ -97,7 +115,17 @@
             }
           })
         }).catch(() => {})
-      }
+      },
+      // switchChange(value){
+      //   if(value==true){
+      //     sessionStorage.setItem('locale','cn')
+      //     this.$i18n.locale=sessionStorage.getItem('locale')
+      //   }else {
+      //     // this.$i18n.locale="en"
+      //     sessionStorage.setItem('locale','en')
+      //     this.$i18n.locale=sessionStorage.getItem('locale')
+      //   }
+      // }
     }
   }
 </script>
