@@ -7,6 +7,12 @@
       <el-form-item label="角色名称" prop="roleName">
         <el-input v-model="dataForm.roleName" placeholder="角色名称"></el-input>
       </el-form-item>
+      <el-form-item label="角色" size="mini" prop="rolePlay">
+        <el-radio-group v-model="dataForm.rolePlay">
+          <el-radio :label="0">普通用户</el-radio>
+          <el-radio :label="1">管理员</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="dataForm.remark" placeholder="备注"></el-input>
       </el-form-item>
@@ -42,7 +48,8 @@
         dataForm: {
           id: 0,
           roleName: '',
-          remark: ''
+          remark: '',
+          rolePlay:1
         },
         dataRule: {
           roleName: [
@@ -77,6 +84,7 @@
               if (data && data.code === 0) {
                 this.dataForm.roleName = data.role.roleName
                 this.dataForm.remark = data.role.remark
+                this.dataForm.rolePlay = data.role.rolePlay
                 var idx = data.role.menuIdList.indexOf(this.tempKey)
                 if (idx !== -1) {
                   data.role.menuIdList.splice(idx, data.role.menuIdList.length - idx)
@@ -98,6 +106,7 @@
                 'roleId': this.dataForm.id || undefined,
                 'roleName': this.dataForm.roleName,
                 'remark': this.dataForm.remark,
+                'rolePlay':this.dataForm.rolePlay,
                 'menuIdList': [].concat(this.$refs.menuListTree.getCheckedKeys(), [this.tempKey], this.$refs.menuListTree.getHalfCheckedKeys())
               })
             }).then(({data}) => {
