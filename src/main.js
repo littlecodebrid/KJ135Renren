@@ -11,6 +11,7 @@ import httpRequest from '@/utils/httpRequest' // api: https://github.com/axios/a
 import { isAuth } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import {goToLogin} from './utils'
+import i18n from './i18n/i18n'
 
 Vue.use(VueCookie)
 Vue.config.productionTip = false
@@ -33,6 +34,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   template: '<App/>',
   components: { App }
 })
