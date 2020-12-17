@@ -5,11 +5,11 @@
         <el-input v-model="dataForm.roleName" placeholder="角色名称" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:role:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-      <!--  <el-button v-if="isAuth('sys:role:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
-           @selection-change="selectionChangeHandle"
-     --> </el-form-item>
+        <el-button @click="getDataList()">{{$t('role.query')}}</el-button>
+        <el-button v-if="isAuth('sys:role:save')" type="primary" @click="addOrUpdateHandle()">{{$t('role.add')}}</el-button>
+        <!--  <el-button v-if="isAuth('sys:role:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+             @selection-change="selectionChangeHandle"
+       --> </el-form-item>
     </el-form>
     <el-table
       :data="dataList"
@@ -34,31 +34,31 @@
         prop="roleName"
         header-align="center"
         align="center"
-        label="角色名称">
+        :label="$t('role.roleName')">
       </el-table-column>
       <el-table-column
         prop="remark"
         header-align="center"
         align="center"
-        label="备注">
+        :label="$t('role.remark')">
       </el-table-column>
       <el-table-column
         prop="createTime"
         header-align="center"
         align="center"
         width="180"
-        label="创建时间">
+        :label="$t('role.createTime')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('role.operation')">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:role:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.roleId)">操作权限修改</el-button>
-          <el-button v-if="isAuth('sys:role:update:data')" type="text" size="small" @click="dataUpdateHandle(scope.row.roleId)">数据权限修改</el-button>
-          <el-button v-if="isAuth('sys:role:delete')" type="text" size="small" @click="deleteHandle(scope.row.roleId)">删除</el-button>
+          <el-button v-if="isAuth('sys:role:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.roleId)">{{$t('role.modificationOfOperationAuthority')}}</el-button>
+          <el-button v-if="isAuth('sys:role:update:data')" type="text" size="small" @click="dataUpdateHandle(scope.row.roleId)">{{$t('role.dataAuthorityModification')}}</el-button>
+          <el-button v-if="isAuth('sys:role:delete')" type="text" size="small" @click="deleteHandle(scope.row.roleId)">{{$t('role.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -73,9 +73,9 @@
     </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
-<!--    待添加，赋予角色数据权限-->
+    <!--    待添加，赋予角色数据权限-->
     <el-dialog title="数据权限" :visible.sync="dataUpdateVisible">
-      <div>TODO:为角色赋予数据权限</div>
+      <div>{{$t('role.Todo: giving data permissions to roles')}}</div>
     </el-dialog>
   </div>
 </template>
@@ -93,7 +93,7 @@
         pageSize: 10,
         totalPage: 0,
         dataListLoading: false,
-       // dataListSelections: [],
+        // dataListSelections: [],
         addOrUpdateVisible: false,
         dataUpdateVisible: false
       }
@@ -139,9 +139,9 @@
         this.getDataList()
       },
       // 多选
-    /*  selectionChangeHandle (val) {
-        this.dataListSelections = val
-      },*/
+      /*  selectionChangeHandle (val) {
+          this.dataListSelections = val
+        },*/
       // 新增 / 修改
       addOrUpdateHandle (id) {
         this.addOrUpdateVisible = true

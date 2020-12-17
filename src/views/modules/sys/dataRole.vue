@@ -5,9 +5,9 @@
         <el-input v-model="dataForm.dataRoleName" placeholder="角色名称" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:role:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:role:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button @click="getDataList()">{{$t('dataRole.query')}}</el-button>
+        <el-button v-if="isAuth('sys:role:save')" type="primary" @click="addOrUpdateHandle()">{{$t('dataRole.add')}}</el-button>
+        <el-button v-if="isAuth('sys:role:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">{{$t('dataRole.batchDeletion')}}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -33,37 +33,37 @@
         prop="dataRoleName"
         header-align="center"
         align="center"
-        label="角色名称">
+        :label="$t('dataRole.roleName')">
       </el-table-column>
       <el-table-column
         prop="remark"
         header-align="center"
         align="center"
-        label="备注">
+        :label="$t('dataRole.remark')">
       </el-table-column>
       <el-table-column
         prop="createTime"
         header-align="center"
         align="center"
         width="180"
-        label="创建时间">
+        :label="$t('dataRole.createTime')">
       </el-table-column>
       <el-table-column
         prop="updateTime"
         header-align="center"
         align="center"
         width="180"
-        label="修改时间">
+        :label="$t('dataRole.updateTime')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('dataRole.operation')">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:dataRole:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.dataRoleId)">数据权限修改</el-button>
-          <el-button v-if="isAuth('sys:dataRole:delete')" type="text" size="small" @click="deleteHandle(scope.row.dataRoleId)">删除</el-button>
+          <el-button v-if="isAuth('sys:dataRole:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.dataRoleId)">{{$t('dataRole.dataAuthorityModification')}}</el-button>
+          <el-button v-if="isAuth('sys:dataRole:delete')" type="text" size="small" @click="deleteHandle(scope.row.dataRoleId)">{{$t('dataRole.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -4,28 +4,28 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="子系统名称" prop="systemName">
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.systemName')" prop="systemName">
         <el-input v-model="dataForm.systemName" placeholder="子系统名称"></el-input>
       </el-form-item>
-       <el-form-item label="子系统标识" prop="systemSign">
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.systemSign')" prop="systemSign">
         <el-input v-model="dataForm.systemSign" placeholder="子系统标识"></el-input>
       </el-form-item>
-      <el-form-item label="是否可用" prop="available">
-      <el-input v-model="dataForm.available" placeholder="是否可用,1-可用，0-不可用"></el-input>
-    </el-form-item>
-    <el-form-item label="英文备注" prop="remark">
-      <el-input v-model="dataForm.remark" placeholder=""></el-input>
-    </el-form-item>
-    <el-form-item label="中文备注" prop="remarkCn">
-      <el-input v-model="dataForm.remarkCn" placeholder="中文备注"></el-input>
-    </el-form-item>
-    <el-form-item label="子系统前缀" prop="systemPrefix">
-      <el-input v-model="dataForm.systemPrefix" placeholder="子系统前缀"></el-input>
-    </el-form-item>
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.available')" prop="available">
+        <el-input v-model="dataForm.available" placeholder="是否可用,1-可用，0-不可用"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.remarkEn')" prop="remark">
+        <el-input v-model="dataForm.remark" placeholder="英文备注"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.remarkCn')" prop="remarkCn">
+        <el-input v-model="dataForm.remarkCn" placeholder="中文备注"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.systemPrefix')" prop="systemPrefix">
+        <el-input v-model="dataForm.systemPrefix" placeholder="子系统前缀"></el-input>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('tusubsystemAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('tusubsystemAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

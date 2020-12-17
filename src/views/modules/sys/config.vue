@@ -5,9 +5,9 @@
         <el-input v-model="dataForm.paramKey" placeholder="权限项目" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button @click="getDataList()">{{$t('config.query')}}</el-button>
+        <el-button type="primary" @click="addOrUpdateHandle()">{{$t('config.add')}}</el-button>
+        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">{{$t('config.batchDeletion')}}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -33,29 +33,29 @@
         prop="paramKey"
         header-align="center"
         align="center"
-        label="权限项目">
+        :label="$t('config.paramKey')">
       </el-table-column>
       <el-table-column
         prop="paramValue"
         header-align="center"
         align="center"
-        label="权限内容">
+        :label="$t('config.paramValue')">
       </el-table-column>
       <el-table-column
         prop="remark"
         header-align="center"
         align="center"
-        label="备注">
+        :label="$t('config.remark')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('config.operation')">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{$t('config.modify')}}</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">{{$t('config.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>

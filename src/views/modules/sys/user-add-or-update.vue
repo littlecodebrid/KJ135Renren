@@ -4,41 +4,41 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="用户名" prop="userName">
+      <el-form-item :label="$t('userAddOrUpdate.username')" prop="userName">
         <el-input v-model="dataForm.userName" placeholder="登录帐号"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password" :class="{ 'is-required': !dataForm.id }">
+      <el-form-item :label="$t('userAddOrUpdate.password')" prop="password" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
       </el-form-item>
-      <el-form-item label="确认密码" prop="comfirmPassword" :class="{ 'is-required': !dataForm.id }">
+      <el-form-item :label="$t('userAddOrUpdate.comfirmPassword')" prop="comfirmPassword" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.comfirmPassword" type="password" placeholder="确认密码"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱" prop="email">
+      <el-form-item :label="$t('userAddOrUpdate.email')" prop="email">
         <el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
       </el-form-item>
-      <el-form-item label="手机号" prop="mobile">
+      <el-form-item :label="$t('userAddOrUpdate.mobile')" prop="mobile">
         <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
       </el-form-item>
-      <el-form-item label="角色" size="mini" prop="roleList">
+      <el-form-item :label="$t('userAddOrUpdate.roleList')" size="mini" prop="roleList">
         <el-radio-group v-model="dataForm.roleId">
           <el-radio v-for=" role in userRoleList" :key="role.roleId" :label="role.roleId">{{role.roleName}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="数据角色" size="mini" prop="dataRoleList">
+      <el-form-item :label="$t('userAddOrUpdate.dataRoleList')" size="mini" prop="dataRoleList">
         <el-radio-group v-model="dataForm.dataRoleId">
           <el-radio v-for=" dataRole in dataRoleList" :key="dataRole.dataRoleId" :label="dataRole.dataRoleId">{{dataRole.dataRoleName}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="状态" size="mini" prop="status">
+      <el-form-item :label="$t('userAddOrUpdate.status')" size="mini" prop="status">
         <el-radio-group v-model="dataForm.status">
-          <el-radio :label="0">禁用</el-radio>
-          <el-radio :label="1">正常</el-radio>
+          <el-radio :label="0">{{$t('userAddOrUpdate.disable')}}</el-radio>
+          <el-radio :label="1">{{$t('userAddOrUpdate.normal')}}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('userAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('userAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

@@ -4,7 +4,7 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="类型" prop="type">
+      <el-form-item :label="$t('menuAddOrUpdate.type')" prop="type">
         <el-radio-group v-model="dataForm.type">
           <el-radio v-for="(type, index) in dataForm.typeList" :label="index" :key="index">{{ type }}</el-radio>
         </el-radio-group>
@@ -17,7 +17,7 @@
           <el-option v-for="(item, index) in opts" :key="index" :label="item.systemName" :value="item.systemId">{{item.systemName}}</el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="上级菜单" prop="parentName">
+      <el-form-item :label="$t('menuAddOrUpdate.parentName')" prop="parentName">
         <el-popover
           ref="menuListPopover"
           placement="bottom-start"
@@ -35,16 +35,17 @@
         </el-popover>
         <el-input v-model="dataForm.parentName" v-popover:menuListPopover :readonly="true" placeholder="点击选择上级菜单" class="menu-list__input"></el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type === 1" label="菜单路由" prop="url">
+      <el-form-item v-if="dataForm.type === 1" :label="$t('menuAddOrUpdate.url')" prop="url">
         <el-input v-model="dataForm.url" placeholder="菜单路由"></el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type !== 0" label="授权标识" prop="perms">
+      <el-form-item v-if="dataForm.type !== 0" :label="$t('menuAddOrUpdate.perms')" prop="perms">
         <el-input v-model="dataForm.perms" placeholder="多个用逗号分隔, 如: user:list,user:create"></el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type !== 2" label="排序号" prop="orderNum">
-        <el-input-number v-model="dataForm.orderNum" controls-position="right" :min="0" label="排序号"></el-input-number>
+      <el-form-item v-if="dataForm.type !== 2" :label="$t('menuAddOrUpdate.orderNum')" prop="orderNum">
+        <!--<el-input-number v-model="dataForm.orderNum" controls-position="right" :min="0" label="排序号"></el-input-number>-->
+        <el-input-number v-model="dataForm.orderNum" controls-position="right" :min="0" :label="$t('menuAddOrUpdate.orderNum')"></el-input-number>
       </el-form-item>
-      <el-form-item v-if="dataForm.type !== 2" label="菜单图标" prop="icon">
+      <el-form-item v-if="dataForm.type !== 2" :label="$t('menuAddOrUpdate.icon')" prop="icon">
         <el-row>
           <el-col :span="22">
             <el-popover
@@ -68,7 +69,8 @@
           </el-col>
           <el-col :span="2" class="icon-list__tips">
             <el-tooltip placement="top" effect="light">
-              <div slot="content">全站推荐使用SVG Sprite, 详细请参考:<a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/icons/index.js" target="_blank">icons/index.js</a>描述</div>
+              <!--<div slot="content">全站推荐使用SVG Sprite, 详细请参考:<a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/icons/index.js" target="_blank">icons/index.js</a>描述</div>-->
+              <div slot="content">{{$t('menuAddOrUpdate.content')}}<a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/icons/index.js" target="_blank">icons/index.js</a>{{$t('menuAddOrUpdate.describe')}}</div>
               <i class="el-icon-warning"></i>
             </el-tooltip>
           </el-col>
@@ -76,8 +78,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('menuAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('menuAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -173,13 +175,13 @@
         })
 
         this.$http({
-              url: this.$http.adornUrl(`/sys/tusubsystem/systemName/list/`),
-              method: 'get',
-              params: this.$http.adornParams()
-            }).then(({data}) => {
-              this.opts = data.list;
-              console.log(this.opts);
-            })
+          url: this.$http.adornUrl(`/sys/tusubsystem/systemName/list/`),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          this.opts = data.list;
+          console.log(this.opts);
+        })
       },
       // 菜单树选中
       menuListTreeCurrentChangeHandle (data, node) {
@@ -239,7 +241,7 @@
   .mod-menu {
     .menu-list__input,
     .icon-list__input {
-       > .el-input__inner {
+      > .el-input__inner {
         cursor: pointer;
       }
     }

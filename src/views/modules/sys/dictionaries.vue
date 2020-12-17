@@ -1,16 +1,16 @@
 <template>
   <div class="mod-user">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
- <!--     <el-form-item>
-        <el-input v-model="dataForm.parentId" placeholder="数据名" clearable></el-input>
-      </el-form-item>-->
+      <!--     <el-form-item>
+             <el-input v-model="dataForm.parentId" placeholder="数据名" clearable></el-input>
+           </el-form-item>-->
       <el-input v-model="dataForm.parentId" hidden placeholder="数据名" clearable></el-input>
       <el-form-item>
-    <!--    <el-button @click="getDataList()">查询</el-button>-->
-        <el-button v-if="isAuth('sys:dictionaries:save')" type="primary"   @click="addOrUpdateHandle(dataForm.parentId.valueOf(),'')">新增</el-button>
-        <el-button v-if="dataForm.parentId!=0" type="primary"   @click="getDataList()">返回</el-button>
-       <!-- <el-button v-if="isAuth('sys:dictionaries:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
-      --></el-form-item>
+        <!--    <el-button @click="getDataList()">查询</el-button>-->
+        <el-button v-if="isAuth('sys:dictionaries:save')" type="primary"   @click="addOrUpdateHandle(dataForm.parentId.valueOf(),'')">{{$t('dictionaries.add')}}</el-button>
+        <el-button v-if="dataForm.parentId!=0" type="primary"   @click="getDataList()">{{$t('dictionaries.return')}}</el-button>
+        <!-- <el-button v-if="isAuth('sys:dictionaries:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+       --></el-form-item>
     </el-form>
     <el-table
       :data="dataList"
@@ -18,53 +18,53 @@
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       style="width: 100%;">
-    <!--  <el-table-column
-        type="selection"
-        header-align="center"
-        align="center"
-        width="50">
-      </el-table-column>-->
+      <!--  <el-table-column
+          type="selection"
+          header-align="center"
+          align="center"
+          width="50">
+        </el-table-column>-->
       <el-table-column
         prop="name"
         header-align="center"
         align="center"
         width="300"
-        label="名字">
-             <template slot-scope="scope">
-               <el-button type="text" size="small" @click="findChild(scope.row.dictionariesId)">{{scope.row.name}}</el-button>
-               <!--  <router-link :to="{name:'Item',query:{name:scope.row.name}}">
-                   <a href="findChild(scope.row.dictionariesId)" target="_blank" class="buttonText">{{scope.row.name}}</a>
-                 </router-link>-->
-           <!--  <a :href=deleteHandle(scope.row.dictionariesId,scope.row.name) target="_blank" class="buttonText">{{scope.row.name}}</a>-->
-           </template>
+        :label="$t('dictionaries.name')">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="findChild(scope.row.dictionariesId)">{{scope.row.name}}</el-button>
+          <!--  <router-link :to="{name:'Item',query:{name:scope.row.name}}">
+              <a href="findChild(scope.row.dictionariesId)" target="_blank" class="buttonText">{{scope.row.name}}</a>
+            </router-link>-->
+          <!--  <a :href=deleteHandle(scope.row.dictionariesId,scope.row.name) target="_blank" class="buttonText">{{scope.row.name}}</a>-->
+        </template>
       </el-table-column>
       <el-table-column
         prop="nameEn"
         header-align="center"
         align="center"
-        label="英文">
+        :label="$t('dictionaries.nameEn')">
       </el-table-column>
       <el-table-column
         prop="bianma"
         header-align="center"
         align="center"
-        label="编码">
+        :label="$t('dictionaries.bianma')">
       </el-table-column>
       <el-table-column
         prop="orderBy"
         header-align="center"
         align="center"
-        label="序列">
+        :label="$t('dictionaries.orderBy')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('dictionaries.operation')">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:dictionaries:update')" type="text" size="small" @click="addOrUpdateHandle(dataForm.parentId.valueOf(),scope.row.dictionariesId)">修改</el-button>
-          <el-button v-if="isAuth('sys:dictionaries:delete')" type="text" size="small" @click="deleteHandle(scope.row.dictionariesId,scope.row.name)">删除</el-button>
+          <el-button v-if="isAuth('sys:dictionaries:update')" type="text" size="small" @click="addOrUpdateHandle(dataForm.parentId.valueOf(),scope.row.dictionariesId)">{{$t('dictionaries.modify')}}</el-button>
+          <el-button v-if="isAuth('sys:dictionaries:delete')" type="text" size="small" @click="deleteHandle(scope.row.dictionariesId,scope.row.name)">{{$t('dictionaries.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>

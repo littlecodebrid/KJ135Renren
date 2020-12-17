@@ -39,14 +39,17 @@ const mainRoutes = {
         // { path: '/demo-ueditor', component: _import('demo/ueditor'), name: 'demo-ueditor', meta: { title: 'demo-ueditor', isTab: true } }
     ],
     beforeEnter(to, from, next) {
-      console.log('ym', to)
+        console.log('ym', to)
         let token = Vue.cookie.get('token')
         let languageKey = Vue.cookie.get('languageKey')
         setLanguage(languageKey)
+        //token不为空且没有空节点
         if (!token || !/\S/.test(token)) {
-            clearLoginInfo()
-            // next({ name: 'login' })
-            goToLogin()
+          //console.log(token)
+          clearLoginInfo()
+          //console.log(token)
+          // next({ name: 'login' })
+          goToLogin()
         }
         next()
     }
@@ -163,7 +166,6 @@ function fnAddDynamicMenuRoutes(menuList = [], routes = []) {
 function goToLogin () {
   let redirect = window.location.href
   window.location.href = window.SITE_CONFIG.loginUrlLocal + `/#/login?redirect=${redirect}`
-
 }
 function setLanguage (key) {
   if(key==='true'){

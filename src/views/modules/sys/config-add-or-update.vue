@@ -4,19 +4,19 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="权限项目" prop="paramKey">
+      <el-form-item :label="$t('configAddOrUpdate.paramKey')" prop="paramKey">
         <el-input v-model="dataForm.paramKey" placeholder="参数名"></el-input>
       </el-form-item>
-      <el-form-item label="权限内容" prop="paramValue">
+      <el-form-item :label="$t('configAddOrUpdate.paramValue')" prop="paramValue">
         <el-input v-model="dataForm.paramValue" placeholder="参数值"></el-input>
       </el-form-item>
-      <el-form-item label="备注" prop="remark">
+      <el-form-item :label="$t('configAddOrUpdate.remark')" prop="remark">
         <el-input v-model="dataForm.remark" placeholder="备注"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('configAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('configAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

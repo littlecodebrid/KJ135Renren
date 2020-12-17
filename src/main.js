@@ -12,6 +12,8 @@ import { isAuth } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import {goToLogin} from './utils'
 import i18n from './i18n/i18n'
+import echarts from 'echarts'
+import { clearLoginInfo } from './utils'
 
 Vue.use(VueCookie)
 Vue.config.productionTip = false
@@ -25,6 +27,8 @@ if (process.env.NODE_ENV !== 'production') {
 Vue.prototype.$http = httpRequest // ajax请求方法
 Vue.prototype.isAuth = isAuth     // 权限方法
 Vue.prototype.goToLogin = goToLogin
+Vue.prototype.$echarts = echarts
+Vue.prototype.clearLoginInfo = clearLoginInfo
 
 // 保存整站vuex本地储存初始状态
 window.SITE_CONFIG['storeState'] = cloneDeep(store.state)
@@ -36,5 +40,5 @@ new Vue({
   store,
   i18n,
   template: '<App/>',
-  components: { App }
+  components: { App },
 })

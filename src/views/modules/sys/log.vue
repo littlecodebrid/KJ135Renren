@@ -5,7 +5,7 @@
         <el-input v-model="dataForm.key" placeholder="用户名／用户操作" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
+        <el-button @click="getDataList()">{{$t('log.query')}}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -24,13 +24,13 @@
         prop="username"
         header-align="center"
         align="center"
-        label="用户名">
+        :label="$t('log.username')">
       </el-table-column>
       <el-table-column
         prop="operation"
         header-align="center"
         align="center"
-        label="用户操作">
+        :label="$t('log.operation')">
       </el-table-column>
       <el-table-column
         prop="method"
@@ -38,7 +38,7 @@
         align="center"
         width="150"
         :show-overflow-tooltip="true"
-        label="请求方法">
+        :label="$t('log.method')">
       </el-table-column>
       <el-table-column
         prop="params"
@@ -46,27 +46,27 @@
         align="center"
         width="150"
         :show-overflow-tooltip="true"
-        label="请求参数">
+        :label="$t('log.params')">
       </el-table-column>
       <el-table-column
         prop="time"
         header-align="center"
         align="center"
-        label="执行时长(毫秒)">
+        :label="$t('log.time')">
       </el-table-column>
       <el-table-column
         prop="ip"
         header-align="center"
         align="center"
         width="150"
-        label="IP地址">
+        :label="$t('log.ip')">
       </el-table-column>
       <el-table-column
         prop="createDate"
         header-align="center"
         align="center"
         width="180"
-        label="创建时间">
+        :label="$t('log.createTime')">
       </el-table-column>
     </el-table>
     <el-pagination
