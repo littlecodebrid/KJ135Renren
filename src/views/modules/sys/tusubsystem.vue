@@ -5,9 +5,9 @@
         <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:tusubsystem:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:tusubsystem:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button @click="getDataList()">{{$t('tusubsystem.query')}}</el-button>
+        <el-button v-if="isAuth('sys:tusubsystem:save')" type="primary" @click="addOrUpdateHandle()">{{$t('tusubsystem.add')}}</el-button>
+        <el-button v-if="isAuth('sys:tusubsystem:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">{{$t('tusubsystem.batchDeletion')}}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -26,47 +26,47 @@
         prop="systemName"
         header-align="center"
         align="center"
-        label="子系统名称">
+        :label="$t('tusubsystem.systemName')">
       </el-table-column>
       <el-table-column
       prop="systemSign"
         header-align="center"
         align="center"
-        label="子系统标识">
+        :label="$t('tusubsystem.systemSign')">
       </el-table-column>
       <el-table-column
         prop="available"
         header-align="center"
         align="center"
-        label="是否可用">
+        :label="$t('tusubsystem.available')">
       </el-table-column>
       <el-table-column
         prop="remark"
         header-align="center"
         align="center"
-        label="英文备注">
+        :label="$t('tusubsystem.remarkEn')">
       </el-table-column>
       <el-table-column
         prop="remarkCn"
         header-align="center"
         align="center"
-        label="中文备注">
+        :label="$t('tusubsystem.remarkCn')">
       </el-table-column>
       <el-table-column
         prop="systemPrefix"
         header-align="center"
         align="center"
-        label="子系统前缀">
+        :label="$t('tusubsystem.systemPrefix')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('tusubsystem.operation')">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.systemId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.systemId)">删除</el-button>
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.systemId)">{{$t('tusubsystem.modify')}}</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.systemId)">{{$t('tusubsystem.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>

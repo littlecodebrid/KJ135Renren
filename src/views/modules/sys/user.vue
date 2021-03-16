@@ -2,12 +2,12 @@
   <div class="mod-user">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
+        <el-input v-model="dataForm.userName" :placeholder="$t('user.username')" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button @click="getDataList()">{{$t('user.query')}}</el-button>
+        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">{{$t('user.add')}}</el-button>
+        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">{{$t('user.batchDeletion')}}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -33,28 +33,28 @@
         prop="username"
         header-align="center"
         align="center"
-        label="用户名">
+        :label="$t('user.username')">
       </el-table-column>
       <el-table-column
         prop="email"
         header-align="center"
         align="center"
-        label="邮箱">
+        :label="$t('user.email')">
       </el-table-column>
       <el-table-column
         prop="mobile"
         header-align="center"
         align="center"
-        label="手机号">
+        :label="$t('user.mobile')">
       </el-table-column>
       <el-table-column
         prop="status"
         header-align="center"
         align="center"
-        label="状态">
+        :label="$t('user.status')">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status === 0" size="small" type="danger">禁用</el-tag>
-          <el-tag v-else size="small">正常</el-tag>
+          <el-tag v-if="scope.row.status === 0" size="small" type="danger">{{$t('user.disable')}}</el-tag>
+          <el-tag v-else size="small">{{$t('user.normal')}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -62,17 +62,17 @@
         header-align="center"
         align="center"
         width="180"
-        label="创建时间">
+        :label="$t('user.createTime')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('user.operation')">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">{{$t('user.modify')}}</el-button>
+          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">{{$t('user.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -164,8 +164,8 @@
           return item.userId
         })
         this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          confirmButtonText: this.$t('tusubsystemAddOrUpdate.determine'),
+          cancelButtonText:  this.$t('tusubsystemAddOrUpdate.cancel'),
           type: 'warning'
         }).then(() => {
           this.$http({
@@ -183,7 +183,7 @@
                 }
               })
             } else {
-              this.$message.error(data.msg)
+              this.$message.error(this.$t(data.msg))
             }
           })
         }).catch(() => {})

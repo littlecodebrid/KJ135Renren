@@ -146,7 +146,6 @@
       },
       //页面跳转
       findChild(parentId){
-        console.log("一直进来吗")
         this.$http({
           url: this.$http.adornUrl('/sys/dictionaries/list'),
           method: 'get',

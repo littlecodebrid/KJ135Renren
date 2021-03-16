@@ -152,6 +152,12 @@ const cn = {
     'systemPrefix':'子系统前缀',
     'cancel':'取消',
     'determine':'确定',
+    'isName':'子系统名称不能为空',
+    'isSign':'子系统标识不能为空',
+    'isAvai':'请选择是否为空',
+    'isEn':'英文备注不能为空',
+    'isCn':'中文备注不能为空',
+    'isPre':'子系统前缀不能为空',
   },
   user:{
     'query':'查询',
@@ -182,7 +188,9 @@ const cn = {
     'cancel':'取消',
     'determine':'确定',
   },
-
+  backstage:{
+    '06019':'子系统名称重复，请重新输入',
+  },
   ...zhLocale
 }
 

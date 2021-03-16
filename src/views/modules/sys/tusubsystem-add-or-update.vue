@@ -1,31 +1,31 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.id ? $t('tusubsystem.add') : $t('tusubsystem.modify')"
     :close-on-click-modal="false"
     :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="子系统名称" prop="systemName">
-        <el-input v-model="dataForm.systemName" placeholder="子系统名称"></el-input>
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="180px">
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.systemName')" prop="systemName">
+        <el-input v-model="dataForm.systemName" :placeholder="$t('tusubsystemAddOrUpdate.systemName')"></el-input>
       </el-form-item>
-       <el-form-item label="子系统标识" prop="systemSign">
-        <el-input v-model="dataForm.systemSign" placeholder="子系统标识"></el-input>
+       <el-form-item :label="$t('tusubsystemAddOrUpdate.systemSign')" prop="systemSign">
+        <el-input v-model="dataForm.systemSign" :placeholder="$t('tusubsystemAddOrUpdate.systemSign')"></el-input>
       </el-form-item>
-      <el-form-item label="是否可用" prop="available">
-      <el-input v-model="dataForm.available" placeholder="是否可用,1-可用，0-不可用"></el-input>
+      <el-form-item :label="$t('tusubsystemAddOrUpdate.available')"  prop="available">
+      <el-input v-model="dataForm.available" :placeholder="$t('tusubsystemAddOrUpdate.available')"></el-input>
     </el-form-item>
-    <el-form-item label="英文备注" prop="remark">
-      <el-input v-model="dataForm.remark" placeholder=""></el-input>
+    <el-form-item :label="$t('tusubsystemAddOrUpdate.remarkEn')" prop="remark">
+      <el-input v-model="dataForm.remark" :placeholder="$t('tusubsystemAddOrUpdate.remarkEn')"></el-input>
     </el-form-item>
-    <el-form-item label="中文备注" prop="remarkCn">
-      <el-input v-model="dataForm.remarkCn" placeholder="中文备注"></el-input>
+    <el-form-item :label="$t('tusubsystemAddOrUpdate.remarkCn')" prop="remarkCn">
+      <el-input v-model="dataForm.remarkCn" :placeholder="$t('tusubsystemAddOrUpdate.remarkCn')"></el-input>
     </el-form-item>
-    <el-form-item label="子系统前缀" prop="systemPrefix">
-      <el-input v-model="dataForm.systemPrefix" placeholder="子系统前缀"></el-input>
+    <el-form-item :label="$t('tusubsystemAddOrUpdate.systemPrefix')" prop="systemPrefix">
+      <el-input v-model="dataForm.systemPrefix" :placeholder="$t('tusubsystemAddOrUpdate.systemPrefix')"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('tusubsystemAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('tusubsystemAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -46,22 +46,22 @@
         },
         dataRule: {
           systemSign:[
-            { required: true, message: '子系统标识不能为空', trigger: 'blur' }
+            { required: true, message: this.$t('tusubsystemAddOrUpdate.isSign'), trigger: 'blur' }
           ],
           systemName:[
-            { required: true, message: '子系统名称不能为空', trigger: 'blur' }
+            { required: true, message: this.$t('tusubsystemAddOrUpdate.isName'), trigger: 'blur' }
           ],
           available: [
-            { required: true, message: '是否可用,1-可用，0-不可用不能为空', trigger: 'blur' }
+            { required: true, message:this.$t('tusubsystemAddOrUpdate.isAvai'), trigger: 'blur' }
           ],
           remark: [
-            { required: true, message: '英文备注不能为空', trigger: 'blur' }
+            { required: true, message: this.$t('tusubsystemAddOrUpdate.isEn'), trigger: 'blur' }
           ],
           remarkCn: [
-            { required: true, message: '中文备注不能为空', trigger: 'blur' }
+            { required: true, message: this.$t('tusubsystemAddOrUpdate.isCn'), trigger: 'blur' }
           ],
           systemPrefix: [
-            { required: true, message: '子系统前缀不能为空', trigger: 'blur' }
+            { required: true, message:  this.$t('tusubsystemAddOrUpdate.isPre'), trigger: 'blur' }
           ]
         }
       }
@@ -69,6 +69,7 @@
     methods: {
       init (id) {
         this.dataForm.systemId = id || 0
+        this.dataForm.id = id||0
         this.visible = true
         this.$nextTick(() => {
           this.$refs['dataForm'].resetFields()
@@ -118,7 +119,7 @@
                   }
                 })
               } else {
-                this.$message.error(data.msg)
+                this.$message.error(this.$t(data.msg))
               }
             })
           }

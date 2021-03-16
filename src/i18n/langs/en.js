@@ -152,6 +152,12 @@ const en = {
     'systemPrefix':'systemPrefix',
     'cancel':'cancel',
     'determine':'determine',
+    'isName':'please input systemName',
+    'isSign':'please input systemSign',
+    'isAvai':'please choose the available',
+    'isEn':'please input English remark',
+    'isCn':'please input Chinese remark',
+    'isPre':'please input systemPrefix',
   },
   user:{
     'query':'query',
@@ -181,6 +187,9 @@ const en = {
     'normal':'normal',
     'cancel':'cancel',
     'determine':'determine',
+  },
+  backstage:{
+    '06019':'Duplicate subsystem name, please input again',
   },
   ...enLocale
 }
