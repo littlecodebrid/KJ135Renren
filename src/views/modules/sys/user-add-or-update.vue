@@ -178,7 +178,7 @@
                   }
                 })
               } else {
-                this.$message.error(data.msg)
+                this.$message.error(this.$t(data.msg))
               }
             })
           }

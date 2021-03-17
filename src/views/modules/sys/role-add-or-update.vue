@@ -1,22 +1,22 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.id ? $t('role.add') : $t('role.modify')"
     :close-on-click-modal="false"
     :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="角色名称" prop="roleName">
-        <el-input v-model="dataForm.roleName" placeholder="角色名称"></el-input>
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="150px">
+      <el-form-item :label="$t('role.roleName')" prop="roleName">
+        <el-input v-model="dataForm.roleName" :placeholder="$t('role.roleName')"></el-input>
       </el-form-item>
-      <el-form-item label="角色" size="mini" prop="rolePlay">
+      <el-form-item :label="$t('role.rolePlay')" size="mini" prop="rolePlay">
         <el-radio-group v-model="dataForm.rolePlay">
-          <el-radio :label="0">普通用户</el-radio>
-          <el-radio :label="1">管理员</el-radio>
+          <el-radio :label="0">{{$t('roleAddOrUpdate.oper')}}</el-radio>
+          <el-radio :label="1">{{$t('roleAddOrUpdate.admin')}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="备注" prop="remark">
-        <el-input v-model="dataForm.remark" placeholder="备注"></el-input>
+      <el-form-item :label="$t('roleAddOrUpdate.remark')" prop="remark">
+        <el-input v-model="dataForm.remark" :placeholder="$t('roleAddOrUpdate.remark')"></el-input>
       </el-form-item>
-      <el-form-item size="mini" label="授权">
+      <el-form-item size="mini" :label="$t('roleAddOrUpdate.Authorization')">
         <el-tree
           :data="menuList"
           :props="menuListTreeProps"
@@ -28,8 +28,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('roleAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('roleAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -121,7 +121,7 @@
                   }
                 })
               } else {
-                this.$message.error(data.msg)
+                this.$message.error(this.$t(data.msg))
               }
             })
           }

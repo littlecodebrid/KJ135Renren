@@ -1,23 +1,23 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.id ? $t('menu.add') : $t('menu.modify')"
     :close-on-click-modal="false"
     :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="类型" prop="type">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="150px">
+      <el-form-item :label="$t('menu.type')" prop="type">
         <el-radio-group v-model="dataForm.type">
           <el-radio v-for="(type, index) in dataForm.typeList" :label="index" :key="index">{{ type }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item :label="dataForm.typeList[dataForm.type] + '名称'" prop="name">
-        <el-input v-model="dataForm.name" :placeholder="dataForm.typeList[dataForm.type] + '名称'"></el-input>
+      <el-form-item :label="dataForm.typeList[dataForm.type] " prop="name">
+        <el-input v-model="dataForm.name" :placeholder="dataForm.typeList[dataForm.type] + $t('menu.name')"></el-input>
       </el-form-item>
-      <el-form-item :label="'子系统'" prop="name">
+      <el-form-item :label="$t('menu.name')" prop="name">
         <el-select v-model="dataForm.systemId" :placeholder="dataForm.typeList[dataForm.type] + '名称'">
           <el-option v-for="(item, index) in opts" :key="index" :label="item.systemName" :value="item.systemId">{{item.systemName}}</el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="上级菜单" prop="parentName">
+      <el-form-item :label="$t('menu.parentName')" prop="parentName">
         <el-popover
           ref="menuListPopover"
           placement="bottom-start"
@@ -35,16 +35,16 @@
         </el-popover>
         <el-input v-model="dataForm.parentName" v-popover:menuListPopover :readonly="true" placeholder="点击选择上级菜单" class="menu-list__input"></el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type === 1" label="菜单路由" prop="url">
-        <el-input v-model="dataForm.url" placeholder="菜单路由"></el-input>
+      <el-form-item v-if="dataForm.type === 1" :label="$t('menu.url')" prop="url">
+        <el-input v-model="dataForm.url" :placeholder="$t('menu.url')"></el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type !== 0" label="授权标识" prop="perms">
+      <el-form-item v-if="dataForm.type !== 0" :label="$t('menu.perms')" prop="perms">
         <el-input v-model="dataForm.perms" placeholder="多个用逗号分隔, 如: user:list,user:create"></el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type !== 2" label="排序号" prop="orderNum">
-        <el-input-number v-model="dataForm.orderNum" controls-position="right" :min="0" label="排序号"></el-input-number>
+      <el-form-item v-if="dataForm.type !== 2" :label="$t('menu.orderNum')" prop="orderNum">
+        <el-input-number v-model="dataForm.orderNum" controls-position="right" :min="0" :label="$t('menu.orderNum')"></el-input-number>
       </el-form-item>
-      <el-form-item v-if="dataForm.type !== 2" label="菜单图标" prop="icon">
+      <el-form-item v-if="dataForm.type !== 2" :label="$t('menu.icon')" prop="icon">
         <el-row>
           <el-col :span="22">
             <el-popover
@@ -66,12 +66,12 @@
             </el-popover>
             <el-input v-model="dataForm.icon" v-popover:iconListPopover :readonly="true" placeholder="菜单图标名称" class="icon-list__input"></el-input>
           </el-col>
-          <el-col :span="2" class="icon-list__tips">
+        <!--  <el-col :span="2" class="icon-list__tips">
             <el-tooltip placement="top" effect="light">
               <div slot="content">全站推荐使用SVG Sprite, 详细请参考:<a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/icons/index.js" target="_blank">icons/index.js</a>描述</div>
               <i class="el-icon-warning"></i>
             </el-tooltip>
-          </el-col>
+          </el-col>-->
         </el-row>
       </el-form-item>
     </el-form>
@@ -97,9 +97,8 @@
       return {
         visible: false,
         dataForm: {
-          id: 0,
           type: 1,
-          typeList: ['目录', '菜单', '操作'],
+          typeList: [this.$t('menu.catalog'), this.$t('menu.menu'), this.$t('menu.operation')],
           name: '',
           parentId: 0,
           parentName: '',
