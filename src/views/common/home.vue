@@ -40,10 +40,11 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-user-solid grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">48</div>
+                  <div class="grid-num">{{succNum}}</div>
                   <div>成功任务量</div>
                 </div>
               </div>
+
             </el-card>
           </el-col>
           <el-col :span="8">
@@ -51,8 +52,8 @@
               <div class="grid-content grid-con-2">
                 <i class="el-icon-message-solid grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">5</div>
-                  <div>等待执行任务</div>
+                  <div class="grid-num">{{rejectNum}}</div>
+                  <div>拒绝任务</div>
                 </div>
               </div>
             </el-card>
@@ -62,7 +63,7 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-s-goods grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">3</div>
+                  <div class="grid-num">{{errorNum}}</div>
                   <div>失败任务量</div>
                 </div>
               </div>
@@ -80,7 +81,6 @@
             :data="dataList"
             border
             v-loading="dataListLoading"
-            @selection-change="selectionChangeHandle"
             style="width: 100%;">
             <el-table-column
               prop="taskSerialNumber"
@@ -108,7 +108,7 @@
               label="任务状态" >
             </el-table-column>
             <el-table-column
-              prop="constatus_message"
+              prop="constatusMessage"
               header-align="center"
               align="center"
               label="描述">
@@ -139,8 +139,15 @@
     data() {
       return {
         name: localStorage.getItem("ms_username"),
-        datalist: [],
+        dataList: [],
         dataListLoading: false,
+        succNum:0,
+        rejectNum:0,
+        errorNum:0,
+        monthSuccNum:0,
+        monthRejecNum:0,
+        monthRunNum:0,
+        monthFailNum:0,
         data: [
           {
             name: "2018/09/04",
@@ -221,6 +228,7 @@
     },
     activated () {
       this.getTaskList("Rejected")
+      this.getMonthTask()
     },
   /*  computed: {
       role() {
@@ -248,10 +256,8 @@
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
-            console.log("走到哪里了"+data.basicInfoList[0].constatus)
             this.dataList = data.basicInfoList
           } else {
-            console.log("怎么走到这了")
             this.dataList = []
           }
           this.dataListLoading = false
@@ -259,7 +265,17 @@
       },
       //todo 任务统计（月）
       getMonthTask(){
-
+        this.$http({
+          url: this.$http.adornUrl('/sys/getTaskNumber'),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.succNum = data.TaskNumberMap.succ;
+            this.errorNum = data.TaskNumberMap.failed;
+            this.rejectNum = data.TaskNumberMap.reject;
+          }
+        })
       },
       //todo 数据量统计
       getDataNumber(){
