@@ -7,10 +7,10 @@
 
     // api接口请求地址
     //window.SITE_CONFIG['baseUrl'] = 'http://172.19.4.221:8080/auth';
-    window.SITE_CONFIG['baseUrl'] = 'http://172.16.2.41:8888/auth';
+    window.SITE_CONFIG['baseUrl'] = 'http://172.16.2.36:8888/auth';
 
     //登录页面接口
-    window.SITE_CONFIG['loginUrlLocal'] = 'http://172.16.2.41:9527';
+    window.SITE_CONFIG['loginUrlLocal'] = 'http://172.16.2.36:9527';
     // cdn地址 = 域名 + 版本号
     window.SITE_CONFIG['domain'] = './'; // 域名
     window.SITE_CONFIG['version'] = ''; // 版本号(年月日时分)

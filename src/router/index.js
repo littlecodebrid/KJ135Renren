@@ -164,7 +164,6 @@ function fnAddDynamicMenuRoutes(menuList = [], routes = []) {
 function goToLogin () {
   let redirect = window.location.href
   window.location.href = window.SITE_CONFIG.loginUrlLocal + `/#/login?redirect=${redirect}`
-
 }
 function setLanguage (key) {
   if(key==='true'){

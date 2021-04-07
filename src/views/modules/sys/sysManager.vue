@@ -2,12 +2,8 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="getDataList()">{{$t('tusubsystem.query')}}</el-button>
-        <el-button v-if="isAuth('sys:tusubsystem:save')" type="primary" @click="addOrUpdateHandle()">{{$t('tusubsystem.add')}}</el-button>
-        <el-button v-if="isAuth('sys:tusubsystem:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">{{$t('tusubsystem.batchDeletion')}}</el-button>
+        <el-button v-if="isAuth('sys:sysManager:save')" type="primary" @click="addOrUpdateHandle()">{{$t('tusubsystem.add')}}</el-button>
+        <el-button v-if="isAuth('sys:sysManager:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">{{$t('sysManager.batchDeletion')}}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -23,69 +19,45 @@
         width="50">
       </el-table-column>
       <el-table-column
-        prop="systemName"
+        prop="sys_name"
         header-align="center"
         align="center"
         :label="$t('tusubsystem.systemName')">
       </el-table-column>
       <el-table-column
-      prop="systemSign"
+      prop="sys_url"
         header-align="center"
         align="center"
-        :label="$t('tusubsystem.systemSign')">
+        :label="$t('sysManager.systemSign')">
       </el-table-column>
       <el-table-column
-        prop="available"
+        prop="sys_port"
         header-align="center"
         align="center"
-        width="100"
-        :label="$t('tusubsystem.available')">
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.available === 0" size="small">不可用</el-tag>
-          <el-tag v-else-if="scope.row.available === 1" size="small" type="success">可用</el-tag>
-        </template>
+        :label="$t('sysManager.available')">
+      </el-table-column>
+      <el-table-column
+        prop="is_use"
+        header-align="center"
+        align="center"
+        :label="$t('sysManager.remarkEn')">
       </el-table-column>
       <el-table-column
         prop="remark"
         header-align="center"
         align="center"
-        :label="$t('tusubsystem.remarkEn')">
+        :label="$t('sysManager.remarkEn')">
       </el-table-column>
-      <el-table-column
-        prop="remarkCn"
-        header-align="center"
-        align="center"
-        :label="$t('tusubsystem.remarkCn')">
-      </el-table-column>
-      <el-table-column
-        prop="systemPrefix"
-        header-align="center"
-        align="center"
-        width="100"
-        :label="$t('tusubsystem.systemPrefix')">
-      </el-table-column>
-      <el-table-column
-        prop="sysUrl"
-        header-align="center"
-        align="center"
-        :label="$t('tusubsystem.sysUrl')">
-      </el-table-column>
-      <el-table-column
-        prop="sysPort"
-        header-align="center"
-        align="center"
-        :label="$t('tusubsystem.sysPort')">
-      </el-table-column>
+
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
-        width="200"
-        :label="$t('tusubsystem.operation')">
+        width="150"
+        :label="$t('sysManager.operation')">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.systemId)">{{$t('tusubsystem.modify')}}</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.systemId)">{{$t('tusubsystem.delete')}}</el-button>
-          <el-button type="text" size="small" @click="goNewWeb(scope.row.sysUrl,scope.row.sysPort,scope.row.systemPrefix)">{{$t('tusubsystem.href')}}</el-button>
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.systemId)">{{$t('sysManager.modify')}}</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.systemId)">{{$t('sysManager.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -104,7 +76,7 @@
 </template>
 
 <script>
-  import AddOrUpdate from './tusubsystem-add-or-update'
+  import AddOrUpdate from './sysManager-add-or-update'
   export default {
     data () {
       return {
@@ -131,7 +103,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/sys/tusubsystem/list'),
+          url: this.$http.adornUrl('/sys/sysManager/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
@@ -171,16 +143,6 @@
           this.$refs.addOrUpdate.init(id)
         })
       },
-      //方法
-      goNewWeb (url,port,perifex) {
-        if(port!=0){
-          let newurl = 'http://'+url+':'+port+'/'+perifex;
-          window.open(newurl, '_blank')
-         // window.opener.location.href ='http://'+url+':'+port+'/'+perifex; //  跳转链接
-        }else{
-          this.$router.push({path: '/login'})
-        }
-      },
       // 删除
       deleteHandle (id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
@@ -192,7 +154,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/sys/tusubsystem/delete'),
+            url: this.$http.adornUrl('/sys/sysManager/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {
@@ -206,7 +168,7 @@
                 }
               })
             } else {
-              this.$message.error(this.$t(data.msg))
+              this.$message.error(data.msg)
             }
           })
         })

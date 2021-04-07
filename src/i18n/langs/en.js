@@ -113,6 +113,7 @@ const en = {
   role:{
     'query':'query',
     'add':'add',
+    'modify':'modify',
     'roleName':'roleName',
     'rolePlay':'rolePlay',
     'remark':'remark',
@@ -142,6 +143,9 @@ const en = {
     'remarkEn':'remarkEn',
     'remarkCn':'remarkCn',
     'systemPrefix':'systemPrefix',
+    'sysUrl':'SYSTEM URL',
+    'sysPort':'SYSTEM PORT',
+    'href':'Go System',
     'operation':'operation',
     'modify':'modify',
     'delete':'delete',
@@ -161,6 +165,8 @@ const en = {
     'isEn':'please input English remark',
     'isCn':'please input Chinese remark',
     'isPre':'please input systemPrefix',
+    'isUrl':'please input System URL',
+    'isPort':'please check System Port',
   },
   user:{
     'query':'query',
@@ -193,6 +199,8 @@ const en = {
   },
   backstage:{
     '06019':'Duplicate subsystem name, please input again',
+    '06020':'Duplicate bianma',
+    '06021':'children is not null,please check it',
   },
   ...enLocale
 }

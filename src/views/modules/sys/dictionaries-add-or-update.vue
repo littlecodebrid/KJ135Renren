@@ -1,19 +1,19 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.id ? $t('dictionaries.add') : $t('dictionaries.modify')"
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="名称" prop="name">
+      <el-form-item :label="$t('dictionariesAddOrUpdate.name')" prop="name">
         <el-input v-model="dataForm.name" placeholder="请输入名称"></el-input>
       </el-form-item>
-      <el-form-item label="英文" prop="nameEn" >
+      <el-form-item :label="$t('dictionariesAddOrUpdate.nameEn')" prop="nameEn" >
         <el-input v-model="dataForm.nameEn"  placeholder="请输入英文"></el-input>
       </el-form-item>
-      <el-form-item label="编码" prop="bianma" >
+      <el-form-item :label="$t('dictionariesAddOrUpdate.bianma')" prop="bianma" >
         <el-input v-model="dataForm.bianma"  placeholder="请输入编码"></el-input>
       </el-form-item>
-      <el-form-item label="排序" prop="paixu" >
+      <el-form-item :label="$t('dictionariesAddOrUpdate.paixu')" prop="paixu" >
         <el-input v-model="dataForm.orderBy" placeholder="请输入数字"></el-input>
       </el-form-item>
       <el-form-item  prop="dictionariesId" >
@@ -27,8 +27,8 @@
       </el-form-item>-->
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">{{$t('dictionariesAddOrUpdate.cancel')}}</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">{{$t('dictionariesAddOrUpdate.determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

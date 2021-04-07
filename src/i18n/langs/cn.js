@@ -113,6 +113,7 @@ const cn = {
   role:{
     'query':'查询',
     'add':'新增',
+    'modify':'修改',
     'roleName':'角色名称',
     'rolePlay':'角色',
     'remark':'备注',
@@ -142,6 +143,9 @@ const cn = {
     'remarkEn':'英文备注',
     'remarkCn':'中文备注',
     'systemPrefix':'子系统前缀',
+    'sysUrl':'子系统IP',
+    'sysPort':'子系统端口',
+    'href':'系统跳转',
     'operation':'操作',
     'modify':'修改',
     'delete':'删除',
@@ -161,6 +165,8 @@ const cn = {
     'isEn':'英文备注不能为空',
     'isCn':'中文备注不能为空',
     'isPre':'子系统前缀不能为空',
+    'isUrl':'子系统地址不能为空',
+    'isPort':'子系统端口不能为0',
   },
   user:{
     'query':'查询',
@@ -191,8 +197,11 @@ const cn = {
     'cancel':'取消',
     'determine':'确定',
   },
+
   backstage:{
     '06019':'子系统名称重复，请重新输入',
+    '06020':'此编码已存在',
+    '06021':'子节点不为空，无法删除',
   },
   ...zhLocale
 }

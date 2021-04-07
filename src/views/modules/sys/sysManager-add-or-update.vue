@@ -22,12 +22,6 @@
     <el-form-item :label="$t('tusubsystemAddOrUpdate.systemPrefix')" prop="systemPrefix">
       <el-input v-model="dataForm.systemPrefix" :placeholder="$t('tusubsystemAddOrUpdate.systemPrefix')"></el-input>
     </el-form-item>
-      <el-form-item :label="$t('tusubsystem.sysUrl')" prop="systemPrefix">
-        <el-input v-model="dataForm.sysUrl" :placeholder="$t('tusubsystem.sysUrl')"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('tusubsystem.sysPort')" prop="systemPrefix">
-        <el-input v-model="dataForm.sysPort" :placeholder="$t('tusubsystem.sysPort')"></el-input>
-      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">{{$t('tusubsystemAddOrUpdate.cancel')}}</el-button>
@@ -48,8 +42,6 @@
           remark: '',
           remarkCn: '',
           systemPrefix: '',
-          sysUrl:'',
-          sysPort:0,
           systemSign:''
         },
         dataRule: {
@@ -70,12 +62,6 @@
           ],
           systemPrefix: [
             { required: true, message:  this.$t('tusubsystemAddOrUpdate.isPre'), trigger: 'blur' }
-          ],
-          sysUrl: [
-            { required: true, message:  this.$t('tusubsystemAddOrUpdate.isUrl'), trigger: 'blur' }
-          ],
-          sysPort: [
-            { required: true, message:  this.$t('tusubsystemAddOrUpdate.isPort'), trigger: 'blur' }
           ]
         }
       }
@@ -100,8 +86,6 @@
                 this.dataForm.remarkCn = data.tuSubSystem.remarkCn
                 this.dataForm.systemPrefix = data.tuSubSystem.systemPrefix
                 this.dataForm.systemSign = data.tuSubSystem.systemSign
-                this.dataForm.sysUrl = data.tuSubSystem.sysUrl
-                this.dataForm.sysPort = data.tuSubSystem.sysPort
               }
             })
           }
@@ -121,9 +105,7 @@
                 'remark': this.dataForm.remark,
                 'remarkCn': this.dataForm.remarkCn,
                 'systemPrefix': this.dataForm.systemPrefix,
-                'systemSign':this.dataForm.systemSign,
-                'sysUrl':this.dataForm.sysUrl,
-                'sysPort':this.dataForm.sysPort
+                'systemSign':this.dataForm.systemSign
               })
             }).then(({data}) => {
               if (data && data.code === 0) {

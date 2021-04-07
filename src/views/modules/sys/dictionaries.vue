@@ -7,8 +7,8 @@
       <el-input v-model="dataForm.parentId" hidden placeholder="数据名" clearable></el-input>
       <el-form-item>
     <!--    <el-button @click="getDataList()">查询</el-button>-->
-        <el-button v-if="isAuth('sys:dictionaries:save')" type="primary"   @click="addOrUpdateHandle(dataForm.parentId.valueOf(),'')">新增</el-button>
-        <el-button v-if="dataForm.parentId!=0" type="primary"   @click="getDataList()">返回</el-button>
+        <el-button v-if="isAuth('sys:dictionaries:save')" type="primary"   @click="addOrUpdateHandle(dataForm.parentId.valueOf(),'')">{{$t('dictionaries.add')}}</el-button>
+        <el-button v-if="dataForm.parentId!=0" type="primary"   @click="getDataList()">{{$t('dictionaries.return')}}</el-button>
        <!-- <el-button v-if="isAuth('sys:dictionaries:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       --></el-form-item>
     </el-form>
@@ -29,7 +29,7 @@
         header-align="center"
         align="center"
         width="300"
-        label="名字">
+        :label="$t('dictionaries.name')">
              <template slot-scope="scope">
                <el-button type="text" size="small" @click="findChild(scope.row.dictionariesId)">{{scope.row.name}}</el-button>
                <!--  <router-link :to="{name:'Item',query:{name:scope.row.name}}">
@@ -42,29 +42,29 @@
         prop="nameEn"
         header-align="center"
         align="center"
-        label="英文">
+        :label="$t('dictionaries.nameEn')">
       </el-table-column>
       <el-table-column
         prop="bianma"
         header-align="center"
         align="center"
-        label="编码">
+        :label="$t('dictionaries.bianma')">
       </el-table-column>
       <el-table-column
         prop="orderBy"
         header-align="center"
         align="center"
-        label="序列">
+        :label="$t('dictionaries.orderBy')">
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        :label="$t('dictionaries.operation')">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:dictionaries:update')" type="text" size="small" @click="addOrUpdateHandle(dataForm.parentId.valueOf(),scope.row.dictionariesId)">修改</el-button>
-          <el-button v-if="isAuth('sys:dictionaries:delete')" type="text" size="small" @click="deleteHandle(scope.row.dictionariesId,scope.row.name)">删除</el-button>
+          <el-button v-if="isAuth('sys:dictionaries:update')" type="text" size="small" @click="addOrUpdateHandle(dataForm.parentId.valueOf(),scope.row.dictionariesId)">{{$t('dictionaries.modify')}}</el-button>
+          <el-button v-if="isAuth('sys:dictionaries:delete')" type="text" size="small" @click="deleteHandle(scope.row.dictionariesId,scope.row.name)">{{$t('dictionaries.delete')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -184,7 +184,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: data.msg,
+                message: this.$t(data.msg),
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
@@ -192,7 +192,7 @@
                 }
               })
             } else {
-              this.$message.error(data.msg)
+              this.$message.error(this.$t(data.msg))
             }
           })
         }).catch(() => {})
