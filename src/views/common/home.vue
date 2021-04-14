@@ -26,11 +26,18 @@
               <span>任务统计（月）</span>
             </div>
           </template>
+          <el-input v-model="monthTotalNum" hidden></el-input>
+          <el-input v-model="monthSuccNum" hidden></el-input>
+          <el-input v-model="monthRejecNum" hidden></el-input>
+          <el-input v-model="monthFailNum" hidden></el-input>
           本月成功任务
-          <el-progress :percentage="71.3" color="#42b983"></el-progress>本月拒绝任务
-          <el-progress :percentage="24.1" color="#f1e05a"></el-progress>执行中任务
-          <el-progress :percentage="13.7"></el-progress>失败任务
-          <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
+          <el-progress :percentage="setProgress(monthSuccNum,monthTotalNum)" color="#42b983"></el-progress>
+          本月拒绝任务
+          <el-progress :percentage="setProgress(monthRejecNum,monthTotalNum)" color="#f1e05a"></el-progress>
+          <!--执行中任务
+          <el-progress :percentage="13.7"></el-progress>-->
+          失败任务
+          <el-progress :percentage="setProgress(monthFailNum,monthTotalNum)" color="#f56c6c"></el-progress>
         </el-card>
       </el-col>
       <el-col :span="16">
@@ -144,59 +151,29 @@
         succNum:0,
         rejectNum:0,
         errorNum:0,
+        monthTotalNum:0,
         monthSuccNum:0,
         monthRejecNum:0,
-        monthRunNum:0,
         monthFailNum:0,
-        data: [
-          {
-            name: "2018/09/04",
-            value: 1083
-          },
-          {
-            name: "2018/09/05",
-            value: 941
-          },
-          {
-            name: "2018/09/06",
-            value: 1139
-          },
-          {
-            name: "2018/09/07",
-            value: 816
-          },
-          {
-            name: "2018/09/08",
-            value: 327
-          },
-          {
-            name: "2018/09/09",
-            value: 228
-          },
-          {
-            name: "2018/09/10",
-            value: 1065
-          }
-        ],
         options: {
           type: "bar",
           title: {
-            text: "最近一周数据量统计图(TB)"
+            text: "最近七天数据量统计图(TB)"
           },
           xRorate: 25,
-          labels: ["周一", "周二", "周三", "周四", "周五","周六","周日"],
+          labels: [],
           datasets: [
             {
               label: "原始",
-              data: [7, 5, 5, 8, 7,10,8]
+              data: []
+            },
+            {
+              label: "归档",
+              data: []
             },
             {
               label: "快视",
-              data: [6, 6, 4, 8, 9,9,8]
-            },
-            {
-              label: "产品",
-              data: [10, 18, 15, 13, 12,15,14]
+              data: []
             }
           ]
         },
@@ -205,19 +182,19 @@
           title: {
             text: "最近几个月任务状态趋势图"
           },
-          labels: ["6月", "7月", "8月", "9月", "10月"],
+          labels: [],
           datasets: [
             {
               label: "成功",
-              data: [234, 278, 270, 190, 230]
+              data: []
             },
             {
               label: "拒绝",
-              data: [164, 178, 150, 135, 160]
+              data: []
             },
             {
               label: "失败",
-              data: [74, 118, 200, 235, 90]
+              data: []
             }
           ]
         }
@@ -229,6 +206,8 @@
     activated () {
       this.getTaskList("Rejected")
       this.getMonthTask()
+      this.getDataNumber()
+      this.getSomeMonthAnalysis()
     },
   /*  computed: {
       role() {
@@ -245,6 +224,17 @@
           1}/${date.getDate()}`;
         });
       },
+      //todo 计算百分比
+      setProgress(littleNumber,totalNumer){
+        if (littleNumber>totalNumer){
+          return 100;
+        }else if(littleNumber==0){
+          return 0;
+        } else {
+          return parseInt((littleNumber/totalNumer).toFixed(1)*100)
+        }
+      },
+
       //todo 获取任务详细信息
       getTaskList(constatus){
         this.dataListLoading = true
@@ -274,16 +264,49 @@
             this.succNum = data.TaskNumberMap.succ;
             this.errorNum = data.TaskNumberMap.failed;
             this.rejectNum = data.TaskNumberMap.reject;
+            this.monthTotalNum = data.TaskNumberMap.monthTotal;
+            this.monthSuccNum =  data.TaskNumberMap.monthSucc;
+            this.monthRejecNum = data.TaskNumberMap.monthReject;
+            this.monthFailNum = data.TaskNumberMap.monthFail;
           }
         })
       },
       //todo 数据量统计
       getDataNumber(){
-
+        this.$http({
+          url: this.$http.adornUrl('/sys/getDataSize'),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.options.labels= data.dateList;
+            //this.options.datasets.data = data.rawDataSize;
+            this.options.datasets[0].data=data.rawDataSize;
+          } else {
+            this.dateList = [];
+            this.rawDataSize = []
+          }
+          this.dataListLoading = false
+        })
       },
       //todo 趋势分析
       getSomeMonthAnalysis(){
-
+        this.$http({
+          url: this.$http.adornUrl('/sys/getSomeMonthStatus'),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.options2.labels= data.monthList;
+            this.options2.datasets[0].data=data.succList;
+            this.options2.datasets[1].data=data.rejectList;
+            this.options2.datasets[2].data=data.failList;
+          } else {
+            this.dateList = [];
+            this.rawDataSize = []
+          }
+          this.dataListLoading = false
+        })
       }
     }
   };
