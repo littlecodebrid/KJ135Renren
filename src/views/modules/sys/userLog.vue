@@ -5,17 +5,8 @@
         <el-input v-model="dataForm.key" placeholder="用户名" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-date-picker
-          v-model="beginTime"
-          :placeholder="开始时间"
-          clearable
-          tye="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          ref="stringRef"
-          size="mini"
-          :disabled="!isFiltersOpen"
-          @change=""jobTimeStartChange
-        />
+        <el-date-picker v-model="beginTime" type="date" placeholder="开始时间" @change="dataSearch" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+        <el-date-picker v-model="endTime" type="date" placeholder="结束时间" @change="dataSearch" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -116,9 +107,27 @@
     },
 
     methods: {
+      dataSearch() {
+        this.getListByDay();
+        this.initData({});
+      },
+      async initData(data) {
+        //获取当前时间
+        var now   = new Date();
+        var monthn = now.getMonth()+1;
+        var yearn  = now.getFullYear();
+        var dayn = now.getDate();
+        var h = now.getHours();
+        var m =now.getMinutes();
+        var s = now.getSeconds();
+        this.selectDatetime = yearn+"-"+monthn+"-"+dayn+" "+h+":"+m+":"+s;
+        this.getListByDay();
+      },
+      async getListByDay(data) {
+
+      },
       // 获取数据列表
       getDataList () {
-        console.log("防守打法"+this.date1+"菜刀队")
         this.dataListLoading = true
         this.$http({
           url: this.$http.adornUrl('/sys/userLog/list'),
@@ -127,8 +136,8 @@
             'page': this.pageIndex,
             'limit': this.pageSize,
             'userName': this.dataForm.key,
-            'beginTime':this.date1,
-            'endTime':this.date2
+            'beginTime':this.beginTime,
+            'endTime':this.endTime
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
